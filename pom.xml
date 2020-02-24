@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.igormaznitsa</groupId>
+  <artifactId>forph</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>forph</name>
+  <description>Forph script engine</description>
+  <url>https://github.com/raydac/forph</url>
+
+  <inceptionYear>2016</inceptionYear>
+
+  <properties>
+    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+  </properties>
+
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/raydac/forph/issues</url>
+  </issueManagement>
+
+  <modules>
+   <module>forph-engine</module>
+  </modules>
+
+  <developers>
+    <developer>
+      <id>raydac</id>
+      <name>Igor Maznitsa</name>
+      <email>rrg4400@gmail.com</email>
+      <url>http://www.igormaznitsa.com</url>
+      <timezone>+3</timezone>
+      <roles>
+        <role>author</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/raydac/forph</url>
+    <connection>scm:git:git://github.com/raydac/forph.git</connection>
+    <developerConnection>scm:git:git@github.com:raydac/forph.git</developerConnection>
+  </scm>
+
+  <organization>
+    <name>Igor Maznitsa</name>
+    <url>http://www.igormaznitsa.com</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+</project>

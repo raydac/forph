@@ -1,2 +1,3 @@
-# forph
-FORTH-based script language
+# FORPH
+
+A FORTH-based high level scipt language.
