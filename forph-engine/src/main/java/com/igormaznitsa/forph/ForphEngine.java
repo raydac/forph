@@ -28,6 +28,7 @@ public class ForphEngine {
       }
       buffer.append((char) nextChar);
     }
+    return buffer.toString();
   }
 
 }
