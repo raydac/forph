@@ -1,116 +1,146 @@
 package com.igormaznitsa.forph;
 
-import com.igormaznitsa.forph.exceptions.ForphEmptyStackException;
-import com.igormaznitsa.forph.exceptions.ForphNotEnoughElementsOnStackException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.Supplier;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
-public class ForphStack<T> {
-    private final long id;
-    private final String name;
-    private final ForphContext context;
-    private List<T> list;
+public final class ForphStack {
+  private List<ForphStackItem> stack;
 
-    public ForphStack(
-        final ForphContext context,
-        final long id,
-        final String name,
-        final Supplier<List<T>> stackContainerSupplier
-    ) {
-        this.id = id;
-        this.name = Objects.requireNonNull(name);
-        this.context = Objects.requireNonNull(context);
-        this.list = stackContainerSupplier.get();
+  ForphStack() {
+    this.stack = new ArrayList<>();
+  }
+
+  public long depth() {
+    return this.stack.size();
+  }
+
+  public boolean isEmpty(final int... tags) {
+    return this.depth(tags) == 0L;
+  }
+
+  public void clear() {
+    this.stack.clear();
+  }
+
+
+  public void drop(final int... tags) {
+    final ForphStackItem item = this.popItem(tags);
+    if (item == null) {
+      throw new NoSuchElementException();
+    }
+    this.pushItem(item);
+    this.pushItem(item);
+  }
+
+  public void swap(final int... tags) {
+    final ForphStackItem b = this.popItem(tags);
+    final ForphStackItem a = this.popItem(tags);
+    if (a == null || b == null) {
+      throw new NoSuchElementException();
+    }
+    this.pushItem(b);
+    this.pushItem(a);
+  }
+
+  public void over(final int... tags) {
+    final ForphStackItem b = this.popItem(tags);
+    final ForphStackItem a = this.popItem(tags);
+    if (a == null || b == null) {
+      throw new NoSuchElementException();
+    }
+    this.pushItem(a);
+    this.pushItem(b);
+    this.pushItem(a);
+  }
+
+  public void rot(final int... tags) {
+    final ForphStackItem c = this.popItem(tags);
+    final ForphStackItem b = this.popItem(tags);
+    final ForphStackItem a = this.popItem(tags);
+    if (a == null || b == null || c == null) {
+      throw new NoSuchElementException();
+    }
+    this.pushItem(b);
+    this.pushItem(c);
+    this.pushItem(a);
+  }
+
+  public long depth(final int... tags) {
+    return this.stack.stream()
+        .filter(x -> x.hasTags(tags))
+        .count();
+  }
+
+  public void push(final Object content, final int... tags) {
+    this.stack.add(new ForphStackItem(tags.clone(), content));
+  }
+
+  public <T> Optional<T> pop(final int... tags) {
+    final ForphStackItem found = this.popItem(tags);
+    return found == null ? Optional.empty() : Optional.of(found.getContent());
+  }
+
+  public <T> Optional<T> peek(final int... tags) {
+    final ForphStackItem found = this.peekItem(tags);
+    return found == null ? Optional.empty() : Optional.of(found.getContent());
+  }
+
+  private void pushItem(final ForphStackItem item) {
+    this.stack.add(item);
+  }
+
+  private ForphStackItem popItem(final int... tags) {
+    for (int i = this.stack.size() - 1; i >= 0; i--) {
+      final ForphStackItem item = this.stack.get(i);
+      if (item.hasTags(tags)) {
+        return this.stack.remove(i);
+      }
+    }
+    return null;
+  }
+
+
+  private ForphStackItem peekItem(final int... tags) {
+    for (int i = this.stack.size() - 1; i >= 0; i--) {
+      final ForphStackItem item = this.stack.get(i);
+      if (item.hasTags(tags)) {
+        return item;
+      }
+    }
+    return null;
+  }
+
+  private static final class ForphStackItem {
+    private final int[] tags;
+    private final Object content;
+
+    ForphStackItem(final int[] tags, final Object content) {
+      this.tags = tags;
+      this.content = content;
     }
 
-    protected void assertNonEmptyStack() {
-        if (this.list.isEmpty()) {
-            throw new ForphEmptyStackException(this);
+    @SuppressWarnings("unchecked")
+    <T> T getContent() {
+      return (T) this.content;
+    }
+
+    boolean hasTags(final int... tag) {
+      for (int j : tag) {
+        boolean found = false;
+        for (int i : tags) {
+          if (j == i) {
+            found = true;
+            break;
+          }
         }
-    }
-
-    protected void assertStackContainsMoreThan(final int elements) {
-        if (this.list.size() < elements) {
-            throw new ForphNotEnoughElementsOnStackException(this, String.format("Required %d elements on stack but foud %d", elements, this.list.size()));
+        if (!found) {
+          return false;
         }
+      }
+      return true;
     }
+  }
 
-    public ForphContext getContext() {
-        return this.context;
-    }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public T pop() {
-        this.assertNonEmptyStack();
-        return this.list.remove(this.list.size() - 1);
-    }
-
-    public T peek() {
-        this.assertNonEmptyStack();
-        return this.list.get(this.list.size() - 1);
-    }
-
-    public ForphStack<T> push(T element) {
-        this.list.add(element);
-        return this;
-    }
-
-    public int size() {
-        return this.list.size();
-    }
-
-    public ForphStack<T> clear() {
-        this.list.clear();
-        return this;
-    }
-
-    public ForphStack<T> drop() {
-        this.assertNonEmptyStack();
-        this.list.remove(this.list.size() - 1);
-        return this;
-    }
-
-    public ForphStack<T> dup() {
-        this.assertNonEmptyStack();
-        this.list.add(this.list.get(this.list.size() - 1));
-        return this;
-    }
-
-    public ForphStack<T> over() {
-        return this.pick(1);
-    }
-
-    public ForphStack<T> pick(int position) {
-        this.assertStackContainsMoreThan(position);
-        this.list.add(this.list.get(this.list.size() - 1 - position));
-        return this;
-    }
-
-    public ForphStack<T> roll(int position) {
-        if (position != 0) {
-            this.assertStackContainsMoreThan(position);
-            this.list.add(this.list.remove(this.list.size() - 1 - position));
-        }
-        return this;
-    }
-
-    public ForphStack<T> rot() {
-        return this.roll(2);
-    }
-
-    public ForphStack<T> swap() {
-        this.assertStackContainsMoreThan(2);
-        final int first = this.list.size() - 1;
-        final int second = this.list.size() - 2;
-        this.list.set(second, this.list.set(first, this.list.get(second)));
-        return this;
-    }
 }

@@ -1,44 +1,46 @@
 package com.igormaznitsa.forph;
 
-import static java.util.Objects.requireNonNull;
-
-
-import com.igormaznitsa.forph.security.ForphAccessLevel;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.NoSuchElementException;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
-public class ForphContext {
-    private final String name;
-    private final ForphStack<Long> dataStack;
-    private final ForphStack<Long> returnStack;
-    private final ForphSecurityManager securityManager;
-    private final List<ForphVocabulary> vocabularies = new ArrayList<>();
+public final class ForphContext {
+  private final AtomicLong wordOffsetCounter = new AtomicLong(1L);
+  private final ForphVocabularyStack vocabularyStack;
+  private final List<String> tags;
+  private final ForphStack stack;
 
-    public ForphContext(final String name, final ForphSecurityManager securityManager) {
-        this.securityManager = requireNonNull(securityManager);
-        this.name = requireNonNull(name);
-        this.dataStack = new ForphStack<>(this, 0, "d", () -> new ArrayList<>(8));
-        this.returnStack = new ForphStack<>(this, 0, "r", () -> new ArrayList<>(8));
+  ForphContext(final String... tags) {
+    this.vocabularyStack = new ForphVocabularyStack(this.makeBaseVocabulary());
+    this.stack = new ForphStack();
+    this.tags = Arrays.stream(tags)
+        .map(x -> x.toLowerCase(Locale.ENGLISH))
+        .distinct()
+        .collect(Collectors.toUnmodifiableList());
+  }
+
+  long makeWordOffset() {
+    return this.wordOffsetCounter.getAndIncrement();
+  }
+
+  private ForphVocabulary makeBaseVocabulary() {
+    return null;
+  }
+
+  public int[] asTags(final String... tag) {
+    final int[] result = new int[tag.length];
+    for (int i = 0; i < tag.length; i++) {
+      final String tagName = tag[i];
+      final int tagIndex = this.tags.indexOf(tagName);
+      if (tagIndex < 0) {
+        throw new NoSuchElementException("Can't find tag: " + tagName);
+      }
+      result[i] = tagIndex;
     }
+    return result;
+  }
 
-    public ForphSecurityManager getSecurityManager() {
-        return this.securityManager;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public ForphWord find(final ForphAccessLevel accessLevel, final String... name) {
-        ForphWord result = null;
-        for (final ForphVocabulary v : this.vocabularies) {
-            if (this.securityManager.isAccessible(accessLevel, v)) {
-                result = v.find(name);
-            }
-            if (result != null) {
-                break;
-            }
-        }
-        return result;
-    }
 }
