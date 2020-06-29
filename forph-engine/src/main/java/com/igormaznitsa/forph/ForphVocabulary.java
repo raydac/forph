@@ -11,12 +11,19 @@ import java.util.stream.Collectors;
 public class ForphVocabulary {
   private final String name;
   private final List<ForphWord> words;
+  private final int ring;
 
-  ForphVocabulary(final String name, final ForphWord... baseWords) {
-    this.name = Objects.requireNonNull(name);
+  ForphVocabulary(final String name, final int ring, final ForphWord... baseWords) {
+    assert name != null && !name.isBlank() : "Name must not be empty and blank";
+    this.ring = ring;
+    this.name = name;
     this.words = stream(baseWords)
         .filter(Objects::nonNull)
         .collect(Collectors.toUnmodifiableList());
+  }
+
+  public int getRing() {
+    return this.ring;
   }
 
   @Override

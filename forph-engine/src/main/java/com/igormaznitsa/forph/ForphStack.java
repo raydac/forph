@@ -24,7 +24,6 @@ public final class ForphStack {
     this.stack.clear();
   }
 
-
   public void drop(final int... tags) {
     final ForphStackItem item = this.popItem(tags);
     if (item == null) {
@@ -83,7 +82,7 @@ public final class ForphStack {
   }
 
   public <T> Optional<T> peek(final int... tags) {
-    final ForphStackItem found = this.peekItem(tags);
+    final ForphStackItem found = this.peekItem(0, tags);
     return found == null ? Optional.empty() : Optional.of(found.getContent());
   }
 
@@ -101,12 +100,16 @@ public final class ForphStack {
     return null;
   }
 
-
-  private ForphStackItem peekItem(final int... tags) {
+  private ForphStackItem peekItem(final int depth, final int... tags) {
+    int depthCounter = depth;
     for (int i = this.stack.size() - 1; i >= 0; i--) {
       final ForphStackItem item = this.stack.get(i);
       if (item.hasTags(tags)) {
-        return item;
+        if (depthCounter == 0) {
+          return item;
+        } else {
+          depthCounter--;
+        }
       }
     }
     return null;

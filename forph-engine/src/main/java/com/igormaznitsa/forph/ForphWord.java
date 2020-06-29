@@ -11,7 +11,15 @@ import java.util.stream.Collectors;
 
 public class ForphWord {
   private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
-  private static final BiConsumer<ForphContext, ForphWord> NULL_EXECUTOR = (x, y) -> {
+  public static final BiConsumer<ForphContext, ForphWord> NULL_EXECUTOR = (x, y) -> {
+  };
+  public static final BiConsumer<ForphContext, ForphWord> INT_EXECUTOR = (x, y) -> {
+  };
+  public static final BiConsumer<ForphContext, ForphWord> FLOAT_EXECUTOR = (x, y) -> {
+  };
+  public static final BiConsumer<ForphContext, ForphWord> STR_EXECUTOR = (x, y) -> {
+  };
+  public static final BiConsumer<ForphContext, ForphWord> WORD_EXECUTOR = (x, y) -> {
   };
   private final Set<ForphWordFlag> flags;
   private final String[] name;
@@ -104,18 +112,18 @@ public class ForphWord {
     private byte[] data = EMPTY_BYTE_ARRAY;
 
     private Builder(final ForphContext context, final String... name) {
-      if (name.length == 0) {
-        throw new IllegalArgumentException("Empty name");
-      }
+      assert name.length > 0 : "Name must not be empty";
       this.name = name.clone();
     }
 
     public Builder stackIn(final String... tags) {
+      assert tags.length > 0 : "Tag must be provided";
       this.stackIn.add(tags.clone());
       return this;
     }
 
     public Builder stackOut(final String... tags) {
+      assert tags.length > 0 : "Tag must be provided";
       this.stackOut.add(tags.clone());
       return this;
     }
@@ -125,6 +133,14 @@ public class ForphWord {
     }
 
     public Builder number(final long number) {
+      return this;
+    }
+
+    public Builder number(final double number) {
+      return this;
+    }
+
+    public Builder str(final String str) {
       return this;
     }
 

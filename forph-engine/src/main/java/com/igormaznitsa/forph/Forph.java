@@ -2,14 +2,16 @@ package com.igormaznitsa.forph;
 
 public class Forph {
 
-  private final ForphVocabularyStack vocabularyStack;
+  private static final String[] BASE_TAGS = new String[] {"int", "float", "str"};
+  private final ForphAccessSecurity accessSecurity;
 
   public Forph() {
-    this.vocabularyStack = new ForphVocabularyStack(makeBaseStack());
+    this.accessSecurity = (x, y) -> true;
   }
 
-  private static ForphVocabulary makeBaseStack() {
-    return new ForphVocabulary("forph");
+  public ForphContext makeContext(final String contextId) {
+    final ForphContext context = new ForphContext(contextId, this.accessSecurity, BASE_TAGS);
+    return context;
   }
 
 }
