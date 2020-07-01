@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public final class ForphVocabularyStack {
-    private final List<ForphVocabulary> vocabularyList;
-    private final ForphVocabulary baseVocab;
-    private final ForphContext context;
+public final class FrphVocabularyStack {
+    private final List<FrphVocabulary> vocabularyList;
+    private final FrphVocabulary baseVocab;
+    private final FrphContext context;
 
-    ForphVocabularyStack(final ForphContext context, final ForphVocabulary baseVocabulary) {
+    FrphVocabularyStack(final FrphContext context, final FrphVocabulary baseVocabulary) {
         assert baseVocabulary != null : "Base FORPH vocabulary must be provide";
         assert context != null : "Context must not be null";
 
@@ -18,9 +18,9 @@ public final class ForphVocabularyStack {
         this.vocabularyList = new ArrayList<>();
     }
 
-    public Optional<ForphVocabulary> activate(final String name) {
+    public Optional<FrphVocabulary> activate(final String name) {
         assert name != null : "Name can't be null";
-        Optional<ForphVocabulary> vocabulary = this.find(name);
+        Optional<FrphVocabulary> vocabulary = this.find(name);
         vocabulary.ifPresent(x -> {
             this.vocabularyList.remove(x);
             this.vocabularyList.add(0, x);
@@ -28,12 +28,12 @@ public final class ForphVocabularyStack {
         return vocabulary;
     }
 
-    Optional<ForphVocabulary> find(final String name) {
+    Optional<FrphVocabulary> find(final String name) {
         assert name != null : "Name must not be null";
         return this.vocabularyList.stream().filter(x -> x.getName().equals(name)).findFirst();
     }
 
-    ForphVocabulary add(final String name, final int callerRing) {
+    FrphVocabulary add(final String name, final int callerRing) {
         assert name != null : "Name can't be null";
         this.find(name)
             .ifPresent(voc -> {
@@ -41,30 +41,30 @@ public final class ForphVocabularyStack {
             });
         return this.find(name)
             .orElseGet(() -> {
-                final ForphVocabulary newVocabulary = new ForphVocabulary(name, callerRing);
+                final FrphVocabulary newVocabulary = new FrphVocabulary(name, callerRing);
                 this.vocabularyList.add(0, newVocabulary);
                 return newVocabulary;
             });
     }
 
-    Optional<ForphVocabulary> current() {
+    Optional<FrphVocabulary> current() {
         return this.vocabularyList.stream().filter(this.context::isAccessible).findFirst();
     }
 
     boolean forget(final String... name) {
         assert name.length > 0 : "Name can't be empty";
-        final Optional<ForphWord> word = this.findWord(name);
+        final Optional<FrphWord> word = this.findWord(name);
         word.ifPresent(x -> {
             vocabularyList.forEach(y -> y.forget(x));
         });
         return word.isPresent();
     }
 
-    Optional<ForphWord> findWord(final String... name) {
+    Optional<FrphWord> findWord(final String... name) {
         assert name.length > 0 : "Name can't be empty";
-        for (final ForphVocabulary v : this.vocabularyList) {
+        for (final FrphVocabulary v : this.vocabularyList) {
             if (this.context.isAccessible(v)) {
-                final Optional<ForphWord> foundWord = v.find(name);
+                final Optional<FrphWord> foundWord = v.find(name);
                 if (foundWord.isPresent()) {
                     this.vocabularyList.remove(v);
                     this.vocabularyList.add(0, v);

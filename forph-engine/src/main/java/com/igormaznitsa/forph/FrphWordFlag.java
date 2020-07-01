@@ -1,5 +1,5 @@
 package com.igormaznitsa.forph;
 
-public enum ForphWordFlag {
+public enum FrphWordFlag {
   IMMEDIATE;
 }

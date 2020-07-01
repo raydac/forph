@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public final class ForphStack {
+public final class FrphStack {
   private List<ForphStackItem> stack;
 
-  ForphStack() {
+  FrphStack() {
     this.stack = new ArrayList<>();
   }
 

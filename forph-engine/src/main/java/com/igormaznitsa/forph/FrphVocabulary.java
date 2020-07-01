@@ -8,12 +8,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ForphVocabulary {
+public class FrphVocabulary {
   private final String name;
-  private final List<ForphWord> words;
+  private final List<FrphWord> words;
   private final int ring;
 
-  ForphVocabulary(final String name, final int ring, final ForphWord... baseWords) {
+  FrphVocabulary(final String name, final int ring, final FrphWord... baseWords) {
     assert name != null && !name.isBlank() : "Name must not be empty and blank";
     this.ring = ring;
     this.name = name;
@@ -33,13 +33,13 @@ public class ForphVocabulary {
 
   @Override
   public boolean equals(final Object that) {
-    if (that instanceof ForphVocabulary) {
-      return this.name.equals(((ForphVocabulary) that).name);
+    if (that instanceof FrphVocabulary) {
+      return this.name.equals(((FrphVocabulary) that).name);
     }
     return false;
   }
 
-  public void forget(final ForphWord word) {
+  public void forget(final FrphWord word) {
     this.words.removeIf(x -> x.getWordOffset() >= word.getWordOffset());
   }
 
@@ -47,11 +47,11 @@ public class ForphVocabulary {
     return this.name;
   }
 
-  public void add(final ForphWord word) {
+  public void add(final FrphWord word) {
     this.words.add(Objects.requireNonNull(word));
   }
 
-  public Optional<ForphWord> find(final String... name) {
+  public Optional<FrphWord> find(final String... name) {
     return this.words.stream().filter(x -> x.match(name)).findFirst();
   }
 

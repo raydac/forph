@@ -7,31 +7,31 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-public final class ForphContext {
+public final class FrphContext {
   private final String contextId;
   private final AtomicLong wordOffsetCounter = new AtomicLong(1L);
-  private final ForphVocabularyStack vocabularyStack;
+  private final FrphVocabularyStack vocabularyStack;
   private final List<String> tags;
-  private final ForphStack stack;
-  private final ForphAccessSecurity accessSecurity;
+  private final FrphStack stack;
+  private final FrphAccessSecurity accessSecurity;
 
   private int currentRing;
 
-  ForphContext(final String contextId,
-               final ForphAccessSecurity accessSecurity,
-               final String... tags) {
+  FrphContext(final String contextId,
+              final FrphAccessSecurity accessSecurity,
+              final String... tags) {
     assert contextId != null && !contextId.isBlank() : "Context id must not be null or blank";
     this.accessSecurity = accessSecurity;
     this.contextId = contextId;
-    this.vocabularyStack = new ForphVocabularyStack(this, this.makeBaseVocabulary());
-    this.stack = new ForphStack();
+    this.vocabularyStack = new FrphVocabularyStack(this, this.makeBaseVocabulary());
+    this.stack = new FrphStack();
     this.tags = Arrays.stream(tags)
         .map(x -> x.toLowerCase(Locale.ENGLISH))
         .distinct()
         .collect(Collectors.toUnmodifiableList());
   }
 
-  public boolean isAccessible(final ForphVocabulary vocabulary) {
+  public boolean isAccessible(final FrphVocabulary vocabulary) {
     return this.accessSecurity.isAccessible(this, vocabulary);
   }
 
@@ -39,7 +39,7 @@ public final class ForphContext {
     return this.wordOffsetCounter.getAndIncrement();
   }
 
-  private ForphVocabulary makeBaseVocabulary() {
+  private FrphVocabulary makeBaseVocabulary() {
     return null;
   }
 
@@ -47,7 +47,7 @@ public final class ForphContext {
     return this.currentRing;
   }
 
-  public ForphAccessSecurity getAccessSecurity() {
+  public FrphAccessSecurity getAccessSecurity() {
     return this.accessSecurity;
   }
 

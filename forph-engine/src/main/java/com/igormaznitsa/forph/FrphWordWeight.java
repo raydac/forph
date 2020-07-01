@@ -1,6 +1,6 @@
 package com.igormaznitsa.forph;
 
-public enum ForphWordWeight {
+public enum FrphWordWeight {
   UNKNOWN,
   ULTRALIGHT,
   LIGHT,

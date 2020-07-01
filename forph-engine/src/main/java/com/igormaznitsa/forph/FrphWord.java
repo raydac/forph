@@ -9,56 +9,56 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
-public class ForphWord {
+public class FrphWord {
   private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
-  public static final BiConsumer<ForphContext, ForphWord> NULL_EXECUTOR = (x, y) -> {
+  public static final BiConsumer<FrphContext, FrphWord> NULL_EXECUTOR = (x, y) -> {
   };
-  public static final BiConsumer<ForphContext, ForphWord> INT_EXECUTOR = (x, y) -> {
+  public static final BiConsumer<FrphContext, FrphWord> INT_EXECUTOR = (x, y) -> {
   };
-  public static final BiConsumer<ForphContext, ForphWord> FLOAT_EXECUTOR = (x, y) -> {
+  public static final BiConsumer<FrphContext, FrphWord> FLOAT_EXECUTOR = (x, y) -> {
   };
-  public static final BiConsumer<ForphContext, ForphWord> STR_EXECUTOR = (x, y) -> {
+  public static final BiConsumer<FrphContext, FrphWord> STR_EXECUTOR = (x, y) -> {
   };
-  public static final BiConsumer<ForphContext, ForphWord> WORD_EXECUTOR = (x, y) -> {
+  public static final BiConsumer<FrphContext, FrphWord> WORD_EXECUTOR = (x, y) -> {
   };
-  private final Set<ForphWordFlag> flags;
+  private final Set<FrphWordFlag> flags;
   private final String[] name;
-  private final ForphWordWeight cpuWeight;
-  private final ForphWordWeight ramWeight;
-  private final BiConsumer<ForphContext, ForphWord> executor;
-  private final List<ForphWord> body;
+  private final FrphWordWeight cpuWeight;
+  private final FrphWordWeight ramWeight;
+  private final BiConsumer<FrphContext, FrphWord> executor;
+  private final List<FrphWord> body;
   private final byte[] data;
-  private final List<int[]> stackIn;
-  private final List<int[]> stackOut;
+  private final List<FrphStackItemDescriptor> stackIn;
+  private final List<FrphStackItemDescriptor> stackOut;
   private final long wordOffset;
 
-  private ForphWord(
+  private FrphWord(
       final long wordOffset,
       final String name
   ) {
     this.data = EMPTY_BYTE_ARRAY;
-    this.cpuWeight = ForphWordWeight.ULTRALIGHT;
-    this.ramWeight = ForphWordWeight.ULTRALIGHT;
+    this.cpuWeight = FrphWordWeight.ULTRALIGHT;
+    this.ramWeight = FrphWordWeight.ULTRALIGHT;
     this.wordOffset = wordOffset;
     this.name = new String[] {name};
-    this.flags = EnumSet.noneOf(ForphWordFlag.class);
+    this.flags = EnumSet.noneOf(FrphWordFlag.class);
     this.executor = NULL_EXECUTOR;
     this.body = Collections.emptyList();
     this.stackIn = Collections.emptyList();
     this.stackOut = Collections.emptyList();
   }
 
-  private ForphWord(
-      final ForphContext context,
-      final EnumSet<ForphWordFlag> flags,
-      final BiConsumer<ForphContext, ForphWord> executor,
+  private FrphWord(
+      final FrphContext context,
+      final EnumSet<FrphWordFlag> flags,
+      final BiConsumer<FrphContext, FrphWord> executor,
       final String[] name,
-      final ForphWord[] params,
+      final FrphWord[] params,
       final byte[] data,
-      final ForphWordWeight cpuWeight,
-      final ForphWordWeight ramWeight,
-      final List<int[]> stackIn,
-      final List<int[]> stackOut
+      final FrphWordWeight cpuWeight,
+      final FrphWordWeight ramWeight,
+      final List<FrphStackItemDescriptor> stackIn,
+      final List<FrphStackItemDescriptor> stackOut
   ) {
     this.wordOffset = context.makeWordOffset();
     this.flags = Collections.unmodifiableSet(EnumSet.copyOf(flags));
@@ -73,7 +73,7 @@ public class ForphWord {
     this.stackOut = stackOut.stream().collect(Collectors.toUnmodifiableList());
   }
 
-  public static Builder build(final ForphContext context, final String... name) {
+  public static Builder build(final FrphContext context, final String... name) {
     return new Builder(context, name);
   }
 
@@ -81,15 +81,15 @@ public class ForphWord {
     return this.data;
   }
 
-  public ForphWordWeight getCpuWeight() {
+  public FrphWordWeight getCpuWeight() {
     return this.cpuWeight;
   }
 
-  public ForphWordWeight getRamWeight() {
+  public FrphWordWeight getRamWeight() {
     return this.ramWeight;
   }
 
-  public Set<ForphWordFlag> getFlags() {
+  public Set<FrphWordFlag> getFlags() {
     return this.flags;
   }
 
@@ -102,16 +102,16 @@ public class ForphWord {
   }
 
   public static class Builder {
-    private static final ForphWord RECURSE = new ForphWord(0L, ' ' + "RECURSE" + ' ');
+    private static final FrphWord RECURSE = new FrphWord(0L, ' ' + "RECURSE" + ' ');
 
     private final String[] name;
-    private BiConsumer<ForphContext, ForphWord> executor = NULL_EXECUTOR;
-    private List<ForphWord> params = new ArrayList<>();
+    private BiConsumer<FrphContext, FrphWord> executor = NULL_EXECUTOR;
+    private List<FrphWord> params = new ArrayList<>();
     private List<String[]> stackIn;
     private List<String[]> stackOut;
     private byte[] data = EMPTY_BYTE_ARRAY;
 
-    private Builder(final ForphContext context, final String... name) {
+    private Builder(final FrphContext context, final String... name) {
       assert name.length > 0 : "Name must not be empty";
       this.name = name.clone();
     }
@@ -149,7 +149,7 @@ public class ForphWord {
       return this;
     }
 
-    public ForphWord build() {
+    public FrphWord build() {
       return null;
     }
 
