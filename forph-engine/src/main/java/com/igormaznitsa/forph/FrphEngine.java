@@ -14,7 +14,7 @@ public class FrphEngine {
     public boolean isAllowed(final FrphContext context, int tag) {
       return true;
     }
-  }
+  };
 
   private static final String[] BASE_TAGS = new String[] {
       "ptr",
