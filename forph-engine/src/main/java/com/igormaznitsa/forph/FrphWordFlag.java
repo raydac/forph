@@ -1,5 +1,6 @@
 package com.igormaznitsa.forph;
 
 public enum FrphWordFlag {
-  IMMEDIATE;
+  IMMEDIATE,
+  POSTPONABLE;
 }

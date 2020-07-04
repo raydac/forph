@@ -10,17 +10,9 @@ import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 public class FrphWord {
-  private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
   public static final BiConsumer<FrphContext, FrphWord> NULL_EXECUTOR = (x, y) -> {
   };
-  public static final BiConsumer<FrphContext, FrphWord> INT_EXECUTOR = (x, y) -> {
-  };
-  public static final BiConsumer<FrphContext, FrphWord> FLOAT_EXECUTOR = (x, y) -> {
-  };
-  public static final BiConsumer<FrphContext, FrphWord> STR_EXECUTOR = (x, y) -> {
-  };
-  public static final BiConsumer<FrphContext, FrphWord> WORD_EXECUTOR = (x, y) -> {
-  };
+  private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
   private final Set<FrphWordFlag> flags;
   private final String[] name;
   private final FrphWordWeight cpuWeight;

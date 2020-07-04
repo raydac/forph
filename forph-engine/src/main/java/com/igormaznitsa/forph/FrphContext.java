@@ -74,6 +74,9 @@ public final class FrphContext {
       final int tagIndex = this.tags.indexOf(tagName);
       if (tagIndex < 0) {
         throw new NoSuchElementException("Can't find tag: " + tagName);
+      } else if (!this.accessSecurity.isAllowed(this, tagIndex)) {
+        throw new SecurityException(
+            String.format("Tag '%s'(%d) is not accessible", tagName, tagIndex));
       }
       result[i] = tagIndex;
     }

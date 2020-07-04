@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public final class FrphStack {
-  private List<ForphStackItem> stack;
+  private final List<ForphStackItem> stack;
 
   FrphStack() {
     this.stack = new ArrayList<>();
