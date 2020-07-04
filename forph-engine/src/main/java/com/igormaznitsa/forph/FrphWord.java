@@ -108,13 +108,13 @@ public class FrphWord {
       this.name = name.clone();
     }
 
-    public Builder stackIn(final String... tags) {
+    public Builder in(final String... tags) {
       assert tags.length > 0 : "Tag must be provided";
       this.stackIn.add(tags.clone());
       return this;
     }
 
-    public Builder stackOut(final String... tags) {
+    public Builder out(final String... tags) {
       assert tags.length > 0 : "Tag must be provided";
       this.stackOut.add(tags.clone());
       return this;
