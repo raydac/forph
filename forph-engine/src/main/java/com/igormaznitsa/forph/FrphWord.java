@@ -6,19 +6,18 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 public class FrphWord {
-  public static final BiConsumer<FrphContext, FrphWord> NULL_EXECUTOR = (x, y) -> {
+  public static final FrphExecutor NULL_EXECUTOR = (x, y, z) -> {
   };
   private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
   private final Set<FrphWordFlag> flags;
   private final String[] name;
   private final FrphWordWeight cpuWeight;
   private final FrphWordWeight ramWeight;
-  private final BiConsumer<FrphContext, FrphWord> executor;
-  private final List<FrphWord> body;
+  private final FrphExecutor executor;
+  private final List<FrphWord> params;
   private final byte[] data;
   private final List<FrphStackItemDescriptor> stackIn;
   private final List<FrphStackItemDescriptor> stackOut;
@@ -35,7 +34,7 @@ public class FrphWord {
     this.name = new String[] {name};
     this.flags = EnumSet.noneOf(FrphWordFlag.class);
     this.executor = NULL_EXECUTOR;
-    this.body = Collections.emptyList();
+    this.params = Collections.emptyList();
     this.stackIn = Collections.emptyList();
     this.stackOut = Collections.emptyList();
   }
@@ -43,7 +42,7 @@ public class FrphWord {
   private FrphWord(
       final FrphContext context,
       final EnumSet<FrphWordFlag> flags,
-      final BiConsumer<FrphContext, FrphWord> executor,
+      final FrphExecutor executor,
       final String[] name,
       final FrphWord[] params,
       final byte[] data,
@@ -59,7 +58,7 @@ public class FrphWord {
     this.cpuWeight = cpuWeight;
     this.ramWeight = ramWeight;
     this.executor = executor;
-    this.body = params.length == 1 ? Collections.singletonList(params[0]) :
+    this.params = params.length == 1 ? Collections.singletonList(params[0]) :
         Arrays.stream(params).collect(Collectors.toUnmodifiableList());
     this.stackIn = stackIn.stream().collect(Collectors.toUnmodifiableList());
     this.stackOut = stackOut.stream().collect(Collectors.toUnmodifiableList());
@@ -97,7 +96,7 @@ public class FrphWord {
     private static final FrphWord RECURSE = new FrphWord(0L, ' ' + "RECURSE" + ' ');
 
     private final String[] name;
-    private BiConsumer<FrphContext, FrphWord> executor = NULL_EXECUTOR;
+    private FrphExecutor executor = NULL_EXECUTOR;
     private List<FrphWord> params = new ArrayList<>();
     private List<String[]> stackIn;
     private List<String[]> stackOut;

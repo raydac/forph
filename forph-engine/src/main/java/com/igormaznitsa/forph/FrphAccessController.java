@@ -1,7 +1,9 @@
 package com.igormaznitsa.forph;
 
-public interface FrphAccessSecurity {
+public interface FrphAccessController {
   boolean isAccessible(FrphContext context, FrphVocabulary vocabulary);
 
   boolean isAllowed(FrphContext context, int tag);
+
+  boolean canAddTag(FrphContext context);
 }

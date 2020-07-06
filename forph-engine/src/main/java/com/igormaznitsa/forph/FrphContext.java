@@ -1,9 +1,12 @@
 package com.igormaznitsa.forph;
 
+import java.io.IOException;
+import java.io.Reader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
@@ -12,19 +15,17 @@ public final class FrphContext {
   private final AtomicLong wordOffsetCounter = new AtomicLong(1L);
   private final FrphVocabularyStack vocabularyStack;
   private final List<String> tags;
-  private final FrphStack stack;
-  private final FrphAccessSecurity accessSecurity;
-
-  private int currentRing;
+  private final FrphMultiStack multiStack;
+  private final FrphAccessController accessSecurity;
 
   FrphContext(final String contextId,
-              final FrphAccessSecurity accessSecurity,
+              final FrphAccessController accessSecurity,
               final String... tags) {
     assert contextId != null && !contextId.isBlank() : "Context id must not be null or blank";
     this.accessSecurity = accessSecurity;
     this.contextId = contextId;
     this.vocabularyStack = new FrphVocabularyStack(this, this.makeBaseVocabulary());
-    this.stack = new FrphStack();
+    this.multiStack = new FrphMultiStack();
     this.tags = Arrays.stream(tags)
         .map(x -> x.toLowerCase(Locale.ENGLISH))
         .distinct()
@@ -44,10 +45,10 @@ public final class FrphContext {
   }
 
   public int getCurrentRing() {
-    return this.currentRing;
+    return this.vocabularyStack.current().orElseThrow().getRing();
   }
 
-  public FrphAccessSecurity getAccessSecurity() {
+  public FrphAccessController getAccessSecurity() {
     return this.accessSecurity;
   }
 
@@ -56,6 +57,10 @@ public final class FrphContext {
   }
 
   public void addTag(final String tag) {
+    if (!this.accessSecurity.canAddTag(this)) {
+      throw new SecurityException("New tag adding is not allowed: " + tag);
+    }
+
     final String normalized = tag.toLowerCase(Locale.ENGLISH).trim();
     if (this.tags.contains(normalized)) {
       throw new IllegalArgumentException("Tag already presented: " + normalized);
@@ -67,7 +72,7 @@ public final class FrphContext {
     return this.tags.toArray(String[]::new);
   }
 
-  public int[] asTags(final String... tag) {
+  public int[] decodeTags(final String... tag) {
     final int[] result = new int[tag.length];
     for (int i = 0; i < tag.length; i++) {
       final String tagName = tag[i];
@@ -81,6 +86,17 @@ public final class FrphContext {
       result[i] = tagIndex;
     }
     return result;
+  }
+
+  public FrphContext read(final Reader reader) throws IOException {
+    final Optional<FrphReader> frphReader = Optional.of(new FrphReader(reader));
+    while (!Thread.currentThread().isInterrupted()) {
+      final Optional<String> nextWord = frphReader.get().next();
+      if (nextWord.isEmpty()) {
+        break;
+      }
+    }
+    return this;
   }
 
 }
