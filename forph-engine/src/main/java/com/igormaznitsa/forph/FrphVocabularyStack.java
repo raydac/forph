@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public final class FrphVocabularyStack {
+final class FrphVocabularyStack {
   private final List<FrphVocabulary> vocabularyList;
   private final FrphVocabulary baseVocab;
   private final FrphContext context;
