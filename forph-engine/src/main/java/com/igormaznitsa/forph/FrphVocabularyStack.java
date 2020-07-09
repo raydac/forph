@@ -34,7 +34,7 @@ final class FrphVocabularyStack {
     return this.vocabularyList.stream().filter(x -> x.getName().equals(name)).findFirst();
   }
 
-  FrphVocabulary add(final String name, final int[] defaultTags, final int callerRing) {
+  FrphVocabulary add(final String name, final int callerRing) {
     assert name != null : "Name can't be null";
 
     this.find(name)
@@ -46,7 +46,6 @@ final class FrphVocabularyStack {
           final FrphVocabulary newVocabulary = new FrphVocabulary(
               name,
               callerRing,
-              defaultTags,
               Collections.emptyList()
           );
           this.vocabularyList.add(0, newVocabulary);
