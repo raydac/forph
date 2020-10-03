@@ -23,7 +23,7 @@
   </issueManagement>
 
   <modules>
-   <module>forph-engine</module>
+   <module>forph-api</module>
   </modules>
 
   <developers>
