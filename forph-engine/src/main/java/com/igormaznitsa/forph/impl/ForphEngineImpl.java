@@ -30,6 +30,16 @@ public class ForphEngineImpl implements ForphEngine {
   }
 
   @Override
+  public ForphSecurity getSecurity(final ForphUser user) {
+    return this.security;
+  }
+
+  @Override
+  public Optional<ForphAddress> findLocalAddress(ForphUser user) {
+    return Optional.empty();
+  }
+
+  @Override
   public String getId() {
     return this.id;
   }
@@ -57,11 +67,6 @@ public class ForphEngineImpl implements ForphEngine {
   @Override
   public ForphUser getUser() {
     return this.rootUser;
-  }
-
-  @Override
-  public ForphSecurity getSecurity() {
-    return this.security;
   }
 
   @Override
