@@ -70,7 +70,7 @@ public class ForphEngineImpl implements ForphEngine {
   }
 
   @Override
-  public ForphRoutine startRoutine(ForphUser user, String name, Reader word) throws IOException {
+  public ForphRoutine spawn(ForphUser user, String id, Reader source) throws IOException {
     return null;
   }
 

@@ -18,7 +18,7 @@ public interface ForphEngine extends AutoCloseable, ForphUserAware {
 
   Iterable<ForphVocabulary> findVocabularies(ForphUser user);
 
-  ForphRoutine startRoutine(ForphUser user, String name, Reader word) throws IOException;
+  ForphRoutine spawn(ForphUser user, String id, Reader source) throws IOException;
 
   Iterable<ForphRoutine> findRoutines(ForphUser user);
 }

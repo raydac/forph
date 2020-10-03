@@ -1,11 +1,17 @@
 package com.igormaznitsa.forph;
 
 public interface ForphSecurity {
-  boolean canOperateStackTag(ForphEngine engine, ForphUser user, ForphPolyStackTag tag);
+  boolean canOperateTag(ForphEngine engine, ForphUser user, ForphPolyStackTag tag);
 
-  boolean canAccessVocabulary(ForphEngine engine, ForphUser user, ForphVocabulary vocabulary);
+  boolean canCreateTag(ForphEngine engine, ForphUser user);
 
-  boolean canSpanRoutine(ForphEngine engine, ForphUser user);
+  boolean canOperateVocabulary(ForphEngine engine, ForphUser user, ForphVocabulary vocabulary);
+
+  boolean canCreateVocabulary(ForphEngine engine, ForphUser user);
+
+  boolean canSpawnRoutine(ForphEngine engine, ForphUser user);
+
+  boolean canAccessRoutine(ForphEngine engine, ForphUser user, ForphRoutine routine);
 
   boolean canAccessWord(ForphEngine engine, ForphUser user, ForphWord word);
 
