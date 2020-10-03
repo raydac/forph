@@ -4,11 +4,17 @@ import java.io.Serializable;
 
 public interface ForphPolyStack extends Serializable {
 
+  long depth();
+
+  long depth(ForphPolyStackTag tag);
+
+  long depth(ForphPolyStackTag... tags);
+
   ForphRoutine getRoutine();
 
   ForphPolyStackItem pop();
 
-  ForphPolyStackItem pop(ForphPolyStackTag tags);
+  ForphPolyStackItem pop(ForphPolyStackTag tag);
 
   ForphPolyStackItem pop(ForphPolyStackTag... tags);
 

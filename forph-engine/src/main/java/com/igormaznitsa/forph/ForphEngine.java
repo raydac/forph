@@ -8,17 +8,21 @@ public interface ForphEngine extends AutoCloseable, ForphUserAware {
 
   String getId();
 
-  Iterable<ForphAddress> findAddresses(ForphUser user);
+  Iterable<ForphAddress> allAddresses(ForphUser user);
 
   ForphSecurity getSecurity(ForphUser user);
 
   Optional<ForphAddress> findLocalAddress(ForphUser user);
 
+  Iterable<ForphQueue> allQueues(ForphUser user);
+
   Optional<ForphQueue> findQueue(ForphUser user, String queueId);
 
-  Iterable<ForphVocabulary> findVocabularies(ForphUser user);
+  Optional<ForphVocabulary> findVocabulary(ForphUser user, String vocabularyId);
+
+  Iterable<ForphVocabulary> allVocabularies(ForphUser user);
 
   ForphRoutine spawn(ForphUser user, String id, Reader source) throws IOException;
 
-  Iterable<ForphRoutine> findRoutines(ForphUser user);
+  Iterable<ForphRoutine> allRoutines(ForphUser user);
 }
