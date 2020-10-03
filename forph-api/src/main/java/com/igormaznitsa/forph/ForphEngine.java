@@ -10,15 +10,15 @@ public interface ForphEngine extends AutoCloseable, ForphUserAware {
 
   Iterable<ForphAddress> allAddresses(ForphUser user);
 
-  ForphSecurity getSecurity(ForphUser user);
+  ForphSecurity getSecurity();
 
   Optional<ForphAddress> findLocalAddress(ForphUser user);
 
   Iterable<ForphQueue> allQueues(ForphUser user);
 
-  Optional<ForphQueue> findQueue(ForphUser user, String queueId);
+  Optional<ForphQueue> findQueue(ForphUser user, String id);
 
-  Optional<ForphVocabulary> findVocabulary(ForphUser user, String vocabularyId);
+  Optional<ForphVocabulary> findVocabulary(ForphUser user, String id);
 
   Iterable<ForphVocabulary> allVocabularies(ForphUser user);
 
