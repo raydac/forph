@@ -1,6 +1,6 @@
-package com.igormaznitsa.forph.exceptions;
+package com.igormaznitsa.forph.api.exceptions;
 
-import com.igormaznitsa.forph.ForphEngine;
+import com.igormaznitsa.forph.api.engine.ForphEngine;
 import java.util.Objects;
 
 public class ForphEngineException extends RuntimeException {
