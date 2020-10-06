@@ -2,7 +2,7 @@ package com.igormaznitsa.forph.api.security;
 
 import com.igormaznitsa.forph.api.engine.ForphEngine;
 import com.igormaznitsa.forph.api.network.ForphAddress;
-import com.igormaznitsa.forph.api.routines.ForphQueue;
+import com.igormaznitsa.forph.api.routines.ForphPipe;
 import com.igormaznitsa.forph.api.routines.ForphRoutine;
 import com.igormaznitsa.forph.api.stack.ForphPolyStackTag;
 import com.igormaznitsa.forph.api.vocabulary.ForphVocabulary;
@@ -37,7 +37,7 @@ public interface ForphSecurity {
 
   boolean canCreateQueue(ForphEngine engine, ForphCredentials credentials);
 
-  boolean canOperateQueue(ForphEngine engine, ForphCredentials credentials, ForphQueue queue);
+  boolean canOperateQueue(ForphEngine engine, ForphCredentials credentials, ForphPipe queue);
 
   boolean canOperateAddress(
       ForphEngine engine,
