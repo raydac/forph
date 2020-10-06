@@ -13,20 +13,35 @@ public interface ForphSecurity {
 
   boolean canCreateTag(ForphEngine engine, ForphCredentials credentials);
 
-  boolean canOperateVocabulary(ForphEngine engine, ForphCredentials credentials,
-                               ForphVocabulary vocabulary);
+  boolean canOperateVocabulary(
+      ForphEngine engine,
+      ForphCredentials credentials,
+      ForphVocabulary vocabulary
+  );
 
   boolean canCreateVocabulary(ForphEngine engine, ForphCredentials credentials);
 
   boolean canSpawnRoutine(ForphEngine engine, ForphCredentials credentials);
 
-  boolean canAccessRoutine(ForphEngine engine, ForphCredentials credentials, ForphRoutine routine);
+  boolean canAccessRoutine(
+      ForphEngine engine,
+      ForphCredentials credentials,
+      ForphRoutine routine
+  );
 
-  boolean canCallWord(ForphEngine engine, ForphCredentials credentials, ForphWord word);
+  boolean canCallWord(
+      ForphEngine engine,
+      ForphCredentials credentials,
+      ForphWord word
+  );
 
   boolean canCreateQueue(ForphEngine engine, ForphCredentials credentials);
 
   boolean canOperateQueue(ForphEngine engine, ForphCredentials credentials, ForphQueue queue);
 
-  boolean canOperateAddress(ForphEngine engine, ForphCredentials credentials, ForphAddress address);
+  boolean canOperateAddress(
+      ForphEngine engine,
+      ForphCredentials credentials,
+      ForphAddress address
+  );
 }

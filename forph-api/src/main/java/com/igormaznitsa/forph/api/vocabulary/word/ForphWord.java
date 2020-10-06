@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 public interface ForphWord extends WithCredentials, Serializable {
+  Set<ForphPolyStackTag> getLocalTags();
+
   ForphVocabulary getVocabulary();
 
   Set<ForphWordFlag> getFlags();
@@ -19,6 +21,8 @@ public interface ForphWord extends WithCredentials, Serializable {
   List<Set<ForphPolyStackTag>> getOut();
 
   List<String> getName();
+
+  int getWeight(WordWeight weight);
 
   void call(ForphCredentials credentials, ForphRoutine routine);
 }

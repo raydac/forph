@@ -1,7 +1,7 @@
 package com.igormaznitsa.forph.api.vocabulary.word;
 
 public enum ForphWordFlag {
-  IMMEDIATE,
   SYNC,
-  DEFERRED
+  CAN_BE_DEFERRED,
+  IMMEDIATE;
 }

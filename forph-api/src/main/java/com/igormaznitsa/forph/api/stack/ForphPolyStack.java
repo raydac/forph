@@ -7,13 +7,9 @@ import java.util.Set;
 
 public interface ForphPolyStack extends Serializable {
 
-  ForphPolyStack clear();
-
   ForphPolyStack clear(ForphPolyStackTag tag);
 
   ForphPolyStack clear(Set<ForphPolyStackTag> tag);
-
-  long depth();
 
   long depth(ForphPolyStackTag tag);
 
@@ -21,49 +17,33 @@ public interface ForphPolyStack extends Serializable {
 
   ForphRoutine getRoutine();
 
-  ForphPolyStackItem pop();
-
   ForphPolyStackItem pop(ForphPolyStackTag tag);
 
   ForphPolyStackItem pop(Set<ForphPolyStackTag> tags);
-
-  ForphPolyStackItem peek();
 
   ForphPolyStackItem peek(ForphPolyStackTag tags);
 
   ForphPolyStackItem peek(Set<ForphPolyStackTag> tags);
 
-  ForphPolyStackItem pick(int position);
-
   ForphPolyStackItem pick(int position, ForphPolyStackTag tags);
 
   ForphPolyStackItem pick(int position, Set<ForphPolyStackTag> tags);
-
-  ForphPolyStack rot();
 
   ForphPolyStack rot(ForphPolyStackTag tags);
 
   ForphPolyStack rot(Set<ForphPolyStackTag> tags);
 
-  ForphPolyStack dup();
-
   ForphPolyStack dup(ForphPolyStackTag tags);
 
   ForphPolyStack dup(Set<ForphPolyStackTag> tags);
-
-  ForphPolyStack drop();
 
   ForphPolyStack drop(ForphPolyStackTag tags);
 
   ForphPolyStack drop(Set<ForphPolyStackTag> tags);
 
-  ForphPolyStack over();
-
   ForphPolyStack over(ForphPolyStackTag tag);
 
   ForphPolyStack over(Set<ForphPolyStackTag> tags);
-
-  ForphPolyStack swap();
 
   ForphPolyStack swap(ForphPolyStackTag tag);
 
