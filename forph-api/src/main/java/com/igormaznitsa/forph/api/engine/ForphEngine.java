@@ -2,6 +2,7 @@ package com.igormaznitsa.forph.api.engine;
 
 import com.igormaznitsa.forph.api.network.ForphAddress;
 import com.igormaznitsa.forph.api.network.ForphEngineKey;
+import com.igormaznitsa.forph.api.others.Nameable;
 import com.igormaznitsa.forph.api.routines.ForphPipe;
 import com.igormaznitsa.forph.api.routines.ForphRoutine;
 import com.igormaznitsa.forph.api.security.ForphCredentials;
@@ -13,9 +14,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Optional;
 
-public interface ForphEngine extends AutoCloseable, WithCredentials {
-
-  String getId();
+public interface ForphEngine extends Nameable, AutoCloseable, WithCredentials {
 
   ForphEngineKey getKey();
 
