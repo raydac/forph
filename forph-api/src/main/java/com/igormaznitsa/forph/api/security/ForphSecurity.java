@@ -23,6 +23,10 @@ public interface ForphSecurity {
 
   boolean canSpawnRoutine(ForphEngine engine, ForphCredentials credentials);
 
+  boolean canReadVar(ForphEngine engine, ForphCredentials credentials, String name);
+
+  boolean canWriteVar(ForphEngine engine, ForphCredentials credentials, String name);
+
   boolean canAccessRoutine(
       ForphEngine engine,
       ForphCredentials credentials,

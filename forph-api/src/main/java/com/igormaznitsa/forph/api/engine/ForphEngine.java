@@ -8,11 +8,13 @@ import com.igormaznitsa.forph.api.routines.ForphRoutine;
 import com.igormaznitsa.forph.api.security.ForphCredentials;
 import com.igormaznitsa.forph.api.security.ForphSecurity;
 import com.igormaznitsa.forph.api.security.WithCredentials;
+import com.igormaznitsa.forph.api.stack.ForphPolyStackItem;
 import com.igormaznitsa.forph.api.stack.ForphPolyStackTag;
 import com.igormaznitsa.forph.api.vocabulary.ForphVocabulary;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public interface ForphEngine extends Nameable, AutoCloseable, WithCredentials {
 
@@ -24,7 +26,8 @@ public interface ForphEngine extends Nameable, AutoCloseable, WithCredentials {
 
   ForphSecurity getSecurity();
 
-  ForphPolyStackTag newTag(ForphCredentials credentials, String name);
+  ForphPolyStackTag newTag(ForphCredentials credentials, String name,
+                           Predicate<ForphPolyStackItem> domainGuard);
 
   ForphVocabulary newVocabulary(ForphCredentials credentials, String name);
 
@@ -40,7 +43,8 @@ public interface ForphEngine extends Nameable, AutoCloseable, WithCredentials {
 
   Iterable<ForphVocabulary> allVocabularies(ForphCredentials credentials);
 
-  ForphRoutine spawn(ForphCredentials credentials, String id, Reader source) throws IOException;
+  ForphRoutine prepareRoutine(ForphCredentials credentials, String id, Reader source)
+      throws IOException;
 
   Iterable<ForphRoutine> allRoutines(ForphCredentials credentials, ForphAddress... addresses);
 }
