@@ -12,4 +12,6 @@ public interface ForphRoutine extends Addressable, Nameable, ForphEngineAware, W
   ForphPolyStack getStack();
 
   CompletableFuture<ForphRoutine> getFuture();
+
+  ForphRoutineMode getMode();
 }
