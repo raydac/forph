@@ -17,11 +17,17 @@ public interface ForphRoutine extends Addressable, Nameable, ForphEngineAware, W
 
   void setErrorWord(ForphWord word);
 
+  void interrupt(ForphCredentials credentials);
+
+  boolean isInterrupted();
+
   ForphPolyStack getStack();
 
   CompletableFuture<ForphRoutine> call();
 
   ForphRoutineMode getMode();
+
+  ForphRoutineState getState();
 
   ForphPolyStackItem getVar(ForphCredentials credentials, String name);
 
