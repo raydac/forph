@@ -24,6 +24,7 @@
 
   <modules>
    <module>forph-api</module>
+   <module>forph-core</module>
    <module>forph-engine-local</module>
   </modules>
 

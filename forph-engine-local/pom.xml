@@ -16,7 +16,7 @@
   <dependencies>
     <dependency>
       <groupId>com.igormaznitsa</groupId>
-      <artifactId>forph-api</artifactId>
+      <artifactId>forph-core</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
