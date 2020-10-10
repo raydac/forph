@@ -26,24 +26,24 @@ public interface ForphEngine extends Nameable, AutoCloseable, WithCredentials {
 
   ForphSecurity getSecurity();
 
-  ForphPolyStackTag newTag(ForphCredentials credentials, String name,
-                           Predicate<ForphPolyStackItem> domainGuard);
+  ForphPolyStackTag makeTag(ForphCredentials credentials, String name,
+                            Predicate<ForphPolyStackItem> domainGuard);
 
   ForphVocabulary newVocabulary(ForphCredentials credentials, String name);
 
-  ForphPipe newPipe(ForphCredentials credentials, String name);
+  ForphPipe makePipe(ForphCredentials credentials, String pipeId);
 
   Optional<ForphAddress> findLocalAddress(ForphCredentials credentials);
 
-  Iterable<ForphPipe> allQueues(ForphCredentials credentials);
+  Iterable<ForphPipe> allPipes(ForphCredentials credentials);
 
-  Optional<ForphPipe> findQueue(ForphCredentials credentials, String id);
+  Optional<ForphPipe> findPipe(ForphCredentials credentials, String pipeId);
 
-  Optional<ForphVocabulary> findVocabulary(ForphCredentials credentials, String id);
+  Optional<ForphVocabulary> findVocabulary(ForphCredentials credentials, String vocabuleryId);
 
   Iterable<ForphVocabulary> allVocabularies(ForphCredentials credentials);
 
-  ForphRoutine prepareRoutine(ForphCredentials credentials, String id, Reader source)
+  ForphRoutine prepareRoutine(ForphCredentials credentials, String routineId, Reader source)
       throws IOException;
 
   Iterable<ForphRoutine> allRoutines(ForphCredentials credentials, ForphAddress... addresses);

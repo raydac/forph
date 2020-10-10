@@ -39,9 +39,9 @@ public interface ForphSecurity {
       ForphWord word
   );
 
-  boolean canCreateQueue(ForphEngine engine, ForphCredentials credentials);
+  boolean canCreatePipe(ForphEngine engine, ForphCredentials credentials);
 
-  boolean canOperateQueue(ForphEngine engine, ForphCredentials credentials, ForphPipe queue);
+  boolean canOperatePipe(ForphEngine engine, ForphCredentials credentials, ForphPipe pipe);
 
   boolean canOperateAddress(
       ForphEngine engine,
