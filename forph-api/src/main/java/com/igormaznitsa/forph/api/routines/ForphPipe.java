@@ -12,7 +12,7 @@ public interface ForphPipe extends Identifiable<PipeIdentifier> {
 
   void push(ForphPolyStackItem item, Duration timeout) throws TimeoutException;
 
-  ForphPolyStackItem pop(Duration timeut) throws TimeoutException;
+  ForphPolyStackItem pop(Duration timeout) throws TimeoutException;
 
-  Optional<ForphPolyStackItem> poll(Duration timout);
+  Optional<ForphPolyStackItem> poll(Duration timeout);
 }
