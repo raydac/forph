@@ -1,4 +1,6 @@
 package com.igormaznitsa.forph.api.network;
 
-public interface ForphEngineKey {
+import java.io.Serializable;
+
+public interface ForphEngineKey extends Serializable {
 }

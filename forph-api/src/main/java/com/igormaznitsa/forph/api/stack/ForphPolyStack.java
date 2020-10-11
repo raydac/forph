@@ -3,6 +3,7 @@ package com.igormaznitsa.forph.api.stack;
 import com.igormaznitsa.forph.api.routines.ForphRoutine;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public interface ForphPolyStack extends Serializable {
@@ -17,17 +18,17 @@ public interface ForphPolyStack extends Serializable {
 
   ForphRoutine getRoutine();
 
-  ForphPolyStackItem pop(ForphPolyStackTag tag);
+  Optional<ForphPolyStackItem> pop(ForphPolyStackTag tag);
 
-  ForphPolyStackItem pop(Set<ForphPolyStackTag> tags);
+  Optional<ForphPolyStackItem> pop(Set<ForphPolyStackTag> tags);
 
-  ForphPolyStackItem peek(ForphPolyStackTag tags);
+  Optional<ForphPolyStackItem> peek(ForphPolyStackTag tags);
 
-  ForphPolyStackItem peek(Set<ForphPolyStackTag> tags);
+  Optional<ForphPolyStackItem> peek(Set<ForphPolyStackTag> tags);
 
-  ForphPolyStackItem pick(int position, ForphPolyStackTag tags);
+  Optional<ForphPolyStackItem> pick(ForphPolyStackTag tags, int depth);
 
-  ForphPolyStackItem pick(int position, Set<ForphPolyStackTag> tags);
+  Optional<ForphPolyStackItem> pick(Set<ForphPolyStackTag> tags, int depth);
 
   void rot(ForphPolyStackTag tags);
 

@@ -1,7 +1,8 @@
 package com.igormaznitsa.forph.api.security;
 
+import com.igormaznitsa.forph.api.identifiers.CredentialsIdentifier;
 import java.util.Optional;
 
 public interface ForphCredentialsFactory {
-  Optional<ForphCredentials> findCredentials(String name, String password);
+  Optional<ForphCredentials> findCredentials(CredentialsIdentifier credentialsId);
 }

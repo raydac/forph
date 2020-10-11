@@ -4,5 +4,5 @@ public enum ForphWordFlag {
   NATIVE,
   SYNC,
   CAN_BE_DEFERRED,
-  IMMEDIATE;
+  IMMEDIATE
 }
